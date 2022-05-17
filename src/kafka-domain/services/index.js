@@ -13,7 +13,6 @@ export class KafkaService {
       await producer.connect();
       await producer.send(data.message, data.topic);
       await producer.disconnect();
-
       return {
         msg: this.successMessage,
         status: 200,

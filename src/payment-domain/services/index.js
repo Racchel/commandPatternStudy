@@ -7,7 +7,7 @@ export class PaymentService {
     this.failureMessage = 'Temos um erro :(';
   }
 
-  async createTicket({ data }) {
+  async createTicket(data) {
     try {
       const connection = CreateDBConnection();
       await connection.connect();
@@ -36,7 +36,7 @@ export class PaymentService {
     }
   }
 
-  async updateTicket({ data }) {
+  async updateTicket(data) {
     try {
       const connection = CreateDBConnection();
       await connection.connect();

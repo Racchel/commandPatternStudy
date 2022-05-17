@@ -7,10 +7,6 @@ export class PaymentModel {
     // TODO
     console.log(this.message);
 
-    return {
-      msg: this.successMessage,
-      status: 200,
-      data: { name, age, value },
-    };
+    return { name, age, value };
   }
 }
