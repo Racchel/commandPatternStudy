@@ -1,6 +1,16 @@
 export class PaymentModel {
-   validate({ name, age, value }) {
-      console.log('Tudo certo com os dados')
-      return { name, age, value }
-   }
+  constructor() {
+    this.message = 'Tudo certo!';
+  }
+
+  validate({ name, age, value }) {
+    // TODO
+    console.log(this.message);
+
+    return {
+      msg: this.successMessage,
+      status: 200,
+      data: { name, age, value },
+    };
+  }
 }

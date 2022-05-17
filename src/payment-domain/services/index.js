@@ -1,42 +1,67 @@
-import { CreateDBConnection } from '../config/index.js'
+import { CreateDBConnection } from '../config/index.js';
 
 // PaymentService
 export class PaymentService {
-   async createTicket(data) {
-      try {
-         const connection = CreateDBConnection()
-         await connection.connect()
+  constructor() {
+    this.successMessage = 'Tudo certo!';
+    this.failureMessage = 'Temos um erro :(';
+  }
 
-         const sqlQuery = 'INSERT INTO domain.PAYMENT (name, age, value) VALUES (:name, :age, :value)'
-         const values = [data.name, data.age, data.value]
+  async createTicket({ data }) {
+    try {
+      const connection = CreateDBConnection();
+      await connection.connect();
 
-         const response = await connection.execute(sqlQuery, values)
+      const sqlQuery = 'INSERT INTO domain.PAYMENT (name, age, value) VALUES (:name, :age, :value)';
+      const values = [data.name, data.age, data.value];
 
-         console.log(`Resposta da query: ${response}`)
-         console.log(`Seu ticket foi criado com sucesso! ${data.name}`)
+      const response = await connection.execute(sqlQuery, values);
 
-         await connection.disconnect()
-      } catch (error) {
-         console.error(error)
-      }
-   }
+      console.log(`Resposta da query: ${response}`);
+      console.log(`Seu ticket foi criado com sucesso! ${data.name}`);
 
-   async updateTicket(data) {
-      try {
-         const connection = CreateDBConnection()
-         await connection.connect()
+      await connection.disconnect();
 
-         const sqlQuery = 'UPDATE domain.PAYMENT SET name = :name'
-         const values = [data.name]
+      return {
+        msg: this.successMessage,
+        status: 200,
+      };
+    } catch (error) {
+      console.error(error);
 
-         const response = await connection.execute(sqlQuery, values)
+      return {
+        msg: this.failureMessage,
+        status: 400,
+      };
+    }
+  }
 
-         console.log(`Resposta da query: ${response}`)
-         console.log(`Seu ticket foi atualizado com sucesso! ${data.name}`)
+  async updateTicket({ data }) {
+    try {
+      const connection = CreateDBConnection();
+      await connection.connect();
 
-         await connection.disconnect()
-      } catch (error) {
-         console.error(error)
-      }
-   }
+      const sqlQuery = 'UPDATE domain.PAYMENT SET name = :name';
+      const values = [data.name];
+
+      const response = await connection.execute(sqlQuery, values);
+
+      console.log(`Resposta da query: ${response}`);
+      console.log(`Seu ticket foi atualizado com sucesso! ${data.name}`);
+
+      await connection.disconnect();
+
+      return {
+        msg: this.successMessage,
+        status: 200,
+      };
+    } catch (error) {
+      console.error(error);
+
+      return {
+        msg: this.failureMessage,
+        status: 400,
+      };
+    }
+  }
 }
